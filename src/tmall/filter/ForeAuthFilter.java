@@ -45,8 +45,9 @@ public class ForeAuthFilter implements Filter{
          
         String uri = request.getRequestURI();
         uri =StringUtils.remove(uri, contextPath);
+        System.out.println("ForeAuthFilter的context:"+contextPath+" uri:"+request.getRequestURI()+" after:"+uri);
         if(uri.startsWith("/fore")&&!uri.startsWith("/foreServlet")){
-            String method = StringUtils.substringAfterLast(uri,"/fore" );
+            String method = StringUtils.substringAfterLast(uri,"/fore" );//取url中/fore后面的字符
             if(!Arrays.asList(noNeedAuthPage).contains(method)){
                 User user =(User) request.getSession().getAttribute("user");
                 if(null==user){
