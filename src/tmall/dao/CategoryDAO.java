@@ -90,7 +90,7 @@ public class CategoryDAO {
 	public void delete(int id) {
 		try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();) {
 			
-			String sql = "delete form category where id = " + id;
+			String sql = "delete from category where id = " + id;
 			s.execute(sql);
 			
 		} catch (SQLException e) {

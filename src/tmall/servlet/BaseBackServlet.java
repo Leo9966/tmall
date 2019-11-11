@@ -1,12 +1,15 @@
 package tmall.servlet;
 
-import java.awt.print.Pageable;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +66,8 @@ public abstract class BaseBackServlet extends HttpServlet {
             } catch (Exception e) {
             }
             Page page = new Page(start,count);
-             
+            
+            System.out.println("收到的request:  "+(String) request.getAttribute("method"));
             /*借助反射，调用对应的方法*/
             String method = (String) request.getAttribute("method");
             Method m = this.getClass().getMethod(method, javax.servlet.http.HttpServletRequest.class,
@@ -91,7 +95,7 @@ public abstract class BaseBackServlet extends HttpServlet {
 		InputStream is = null;
 		try {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
-			ServletFileUpload upload = new ServletFileUpload();
+			ServletFileUpload upload = new ServletFileUpload(factory);
 			
 			factory.setSizeThreshold(1024 * 10240);//上传文件的大小为10M
 			

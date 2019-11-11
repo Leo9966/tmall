@@ -24,6 +24,7 @@ public class CategoryServlet extends BaseBackServlet {
         InputStream is = super.parseUpload(request, params);//获取上传文件的输入留
          
         String name = params.get("name");
+        System.out.println("分区名称"+params);
         Category c = new Category();
         c.setName(name);
         categoryDAO.add(c);
